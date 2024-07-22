@@ -18,16 +18,28 @@ export default function ContextProvider(props) {
     // Save the chosen code block
     const [chosenCodeBlock, setChosenCodeBlock] = useState();
 
+    // const LoadCodeBlocks = async () => {
+    //     try {
+    //       let res = await fetch(`${apiUrl}/api/codeBlocks`);
+    //       let data = await res.json();
+    //       console.log(data);
+    //       setCodeBlocks(data);
+    //     } catch (error) {
+    //       console.log({ error } );
+    //     }
+    //   };
+
     const LoadCodeBlocks = async () => {
         try {
-          let res = await fetch(`${apiUrl}/api/codeBlocks`);
-          let data = await res.json();
-          console.log(data);
-          setCodeBlocks(data);
+            const res = await fetch(`${apiUrl}/api/codeBlocks`);
+            console.log(res);         
+            const data = await res.json();
+            console.log('Fetched Code Blocks:', data);
+            setCodeBlocks(data);
         } catch (error) {
-          console.log({ error } );
+            console.log({ error });
         }
-      };
+    };
 
   return (
     <ContextPage.Provider value={{ codeBlocks, setCodeBlocks, chosenCodeBlock, setChosenCodeBlock, LoadCodeBlocks }}>

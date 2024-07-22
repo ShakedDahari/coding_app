@@ -8,6 +8,11 @@ class CodeBlock {
     constructor(name) {
         this.name = name;
     }
+
+    static async FindAllCodeBlocks() {
+        return await new DB().FindAll(CodeBlock.collection);
+    }
 }
+
 
 module.exports = CodeBlock;

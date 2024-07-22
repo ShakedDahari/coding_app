@@ -15,6 +15,12 @@ server.use(express.json());
 
 server.use('/api/codeBlocks', require('./routes/codeBlocksRoute'));
 
+server.get('/',function(req, res) {
+    const ipAddress = req.header('x-forwarded-for') ||
+                          req.socket.remoteAddress;
+    res.send(ipAddress);
+});
+
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

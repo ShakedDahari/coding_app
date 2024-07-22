@@ -5,24 +5,25 @@ import CodeBlockPage from './Components/CodeBlockPage';
 import { apiUrl } from './utils/api_url';
 import { useEffect } from 'react';
 
-const fetchApi = async() => {
-  try {
-    const res  = await fetch(`${apiUrl}/api/codeBlocks`);
-    const data = await res.json();
-    if (data) {
-      console.log("Api Success");
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-}
-
-
 function App() {
+
+  const fetchApi = async() => {
+    try {
+      const res  = await fetch(`${apiUrl}/api/codeBlocks`);
+      const data = await res.json();
+      if (data) {
+        console.log("Api Success");
+        console.log('data fetchapi' + data);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   useEffect(() =>{
     fetchApi();
-  });
+    console.log('appppp');
+  }, []);
 
   return (
     <div className="App">

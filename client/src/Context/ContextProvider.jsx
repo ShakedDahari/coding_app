@@ -22,6 +22,7 @@ export default function ContextProvider(props) {
         try {
           let res = await fetch(`${apiUrl}/api/codeBlocks`);
           let data = await res.json();
+          console.log(data);
           setCodeBlocks(data);
         } catch (error) {
           console.log({ error } );

@@ -1,11 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ContextPage } from "../Context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function LobbyPage() {
 
     const navigate = useNavigate();
-    const { codeBlocks, setChosenCodeBlock } = useContext(ContextPage);
+    const { codeBlocks, setChosenCodeBlock, LoadCodeBlocks } = useContext(ContextPage);
+
+    useEffect(() => {
+        LoadCodeBlocks();
+        console.log(codeBlocks);
+    }, []);
 
     const handleNavigation = (block) => {
         if (block) {

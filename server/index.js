@@ -1,4 +1,5 @@
 require('dotenv').config();
+const http = require('http');
 const socketIo = require('socket.io');
 const express = require('express');
 const cors = require('cors');
@@ -21,7 +22,9 @@ server.get('/',function(req, res) {
     res.send(ipAddress);
 });
 
-const io = socketIo(server);
+const ser = http.createServer(server);
+
+const io = socketIo(ser);
 
 // Track roles and connections
 const codeBlockRoles = {}; // Format: { codeBlockId: { mentorSocketId: string, studentSocketIds: Set<string> } }

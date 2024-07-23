@@ -19,10 +19,46 @@ export default function LobbyPage() {
     //         }
     // });
 
+    // const fetchApi = async() => {
+    //     try {
+    //         const res  = await fetch(`${apiUrl}/api/codeBlocks`);
+    //         console.log('Fetching API...');
+    //       console.log('res' + res);
+    //       const data = await res.json();
+    //       if (data) {
+    //         console.log("Api Success");
+    //         console.log('data fetchapi' + data);
+    //         setCodeBlocks(data);
+    //       }
+    //     } catch (error) {
+    //       console.log(error.message);
+    //     }
+    //   }
+
+    const fetchApi = async () => {
+        try {
+            const res = await fetch(`${apiUrl}/api/codeBlocks`, { mode: 'cors' });
+            console.log('res', res);
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            const data = await res.json();
+            console.log(JSON.stringify(data) + 'data');
+            if (data) {
+                console.log("API Success");
+                console.log('Fetched Data:', data);
+                setCodeBlocks(data);
+            }
+        } catch (error) {
+            console.log('Fetch error:', error.message);
+        }
+    };
+
     useEffect(() => {
-        LoadCodeBlocks();
+        // LoadCodeBlocks();
+        fetchApi();
         console.log(codeBlocks);
-    }, [LoadCodeBlocks()]);
+    }, []);
 
     const handleNavigation = (block) => {
         if (block) {

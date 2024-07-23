@@ -32,10 +32,10 @@ export default function ContextProvider(props) {
     const LoadCodeBlocks = async () => {
         try {
             const res = await fetch(`${apiUrl}/api/codeBlocks`);
-            console.log(res);         
             const data = await res.json();
-            console.log('Fetched Code Blocks:', data);
-            setCodeBlocks(data);
+            if (data) {
+                setCodeBlocks(data);
+            }
         } catch (error) {
             console.log({ error });
         }

@@ -8,34 +8,34 @@ import { useContext } from 'react';
 import { ContextPage } from './Context/ContextProvider';
 import CodeBlocks from './Components/CodeBlocks';
 
+// const fetchApi = async() => {
+//   try {
+//     const res  = await fetch(`${apiUrl}/api/codeBlocks`);
+//     console.log('res' + res);
+//     const data = await res.json();
+//     if (data) {
+//       console.log("Api Success");
+//       console.log('data fetchapi' + data);
+//     }
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+
 function App() {
+ 
+  const { LoadCodeBlocks, CodeBlocks } = useContext(ContextPage);
+  
+  useEffect(() => {
+      LoadCodeBlocks();
+      console.log(CodeBlocks);
+    }, []);
 
-  // const fetchApi = async() => {
-  //   try {
-  //     const res  = await fetch(`${apiUrl}/api/codeBlocks`);
-  //     console.log('res' + res);
-  //     const data = await res.json();
-  //     if (data) {
-  //       console.log("Api Success");
-  //       console.log('data fetchapi' + data);
-  //     }
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-
-  // useEffect(() =>{
-  //   fetchApi();
-  //   console.log('appppp');
-  // }, []);
-
-  // const { LoadCodeBlocks, CodeBlocks } = useContext(ContextPage);
-
-  // useEffect(() => {
-  //   LoadCodeBlocks();
-  //   console.log('App loaded and data fetched' + CodeBlocks);
-  // }, [LoadCodeBlocks]);
-
+    // useEffect(() =>{
+    //   fetchApi();
+    //   console.log('appppp');
+    // }, []);
+    
   return (
     <div className="App">
       <Routes>

@@ -11,4 +11,14 @@ codeBlocksRoute.get('/', async (req, res) => {
     }
 });
 
+codeBlocksRoute.get('/:id', async (req, res) => {
+    try {
+        let { id } = req.params;
+        let data = await CodeBlock.FindById(id);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+});
+
 module.exports = codeBlocksRoute;

@@ -6,7 +6,7 @@ export default function CodeBlocks() {
 
     const { codeBlocks } = useContext(ContextPage);
 
-    let codeBlocksOutput = codeBlocks.map(block => <BlockItem key={block.id} id={block.id} title={block.title}/>);
+    let codeBlocksOutput = codeBlocks.map(block => <BlockItem key={block._id} id={block._id} title={block.name}/>);
 
   return (
     <div>

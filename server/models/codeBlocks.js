@@ -12,6 +12,10 @@ class CodeBlock {
     static async FindAllCodeBlocks() {
         return await new DB().FindAll(CodeBlock.collection);
     }
+
+    static async FindById(id) {
+        return await new DB().FindByID(CodeBlock.collection, id);
+    }
 }
 
 

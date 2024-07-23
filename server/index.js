@@ -18,7 +18,14 @@ server.use(express.json());
 const ser = http.createServer(server);
 
 // Attach Socket.io to the HTTP server
-const io = socketIo(ser);
+const io = socketIo(ser, {
+    cors: {
+        origin: '*', // Allow all origins
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type'],
+        credentials: true
+    }
+});
 
 // Socket.io handling
 const codeBlockRoles = {}; // Track roles and connections

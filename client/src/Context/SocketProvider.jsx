@@ -14,7 +14,7 @@ export const SocketProvider = ({ children }) => {
 
     useEffect(() => {
         const socketInstance = io('https://coding-app-o6rb.onrender.com', {
-            transports: ['websocket']
+            transports: ['websocket', 'polling']
         });
 
         socketInstance.on('connect', () => {

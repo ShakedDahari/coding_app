@@ -72,6 +72,6 @@ server.get('/',function(req, res) {
     res.send(ipAddress);
 });
 
-server.listen(PORT, () => {
+ser.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

@@ -7,7 +7,7 @@ export default function BlockItem(props) {
 
   return (
     <div>
-        <p> {props.title} </p>
+        <p> {props.name} </p>
     </div>
   )
 }

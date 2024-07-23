@@ -6,7 +6,7 @@ import { apiUrl } from "../utils/api_url";
 export default function LobbyPage() {
 
     const navigate = useNavigate();
-    const { codeBlocks, setCodeBlocks, setChosenCodeBlock, LoadCodeBlocks } = useContext(ContextPage);
+    const { codeBlocks, setCodeBlocks, setChosenCodeBlock, LoadCodeBlocks, fetchCodeBlockData } = useContext(ContextPage);
 
     // useEffect(() => {
     //         try {
@@ -35,30 +35,30 @@ export default function LobbyPage() {
     //     }
     //   }
 
-    const fetchApi = async () => {
-        try {
-            const res = await fetch(`${apiUrl}/api/codeBlocks`, { mode: 'cors' });
-            console.log('res', res);
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            const data = await res.json();
-            console.log(JSON.stringify(data) + 'data');
-            if (data) {
-                console.log("API Success");
-                console.log('Fetched Data:', data);
-                setCodeBlocks(data);
-            }
-        } catch (error) {
-            console.log('Fetch error:', error.message);
-        }
-    };
+    // const fetchApi = async () => {
+    //     try {
+    //         const res = await fetch(`${apiUrl}/api/codeBlocks`, { mode: 'cors' });
+    //         console.log('res', res);
+    //         if (!res.ok) {
+    //             throw new Error(`HTTP error! status: ${res.status}`);
+    //         }
+    //         const data = await res.json();
+    //         console.log(JSON.stringify(data) + 'data');
+    //         if (data) {
+    //             console.log("API Success");
+    //             console.log('Fetched Data:', data);
+    //             setCodeBlocks(data);
+    //         }
+    //     } catch (error) {
+    //         console.log('Fetch error:', error.message);
+    //     }
+    // };
 
-    useEffect(() => {
-        // LoadCodeBlocks();
-        fetchApi();
-        console.log(codeBlocks);
-    }, []);
+    // useEffect(() => {
+    //     // LoadCodeBlocks();
+    //     fetchApi();
+    //     console.log(codeBlocks);
+    // }, []);
 
     const handleNavigation = (block) => {
         if (block) {

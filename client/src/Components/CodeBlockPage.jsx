@@ -1,48 +1,24 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ContextPage } from '../Context/ContextProvider';
 import io from 'socket.io-client';
 import { apiUrl } from '../utils/api_url';
+import { useSocket } from '../Context/SocketProvider';
 
 const socket = io(`${apiUrl}`);
 
 export default function CodePage() {
 
+  const { socket, role, studentsCount } = useSocket();
+
     const { chosenCodeBlock, normalizeCode } = useContext(ContextPage);
     const [code, setCode] = useState("");
     const [isSolutionCorrect, setIsSolutionCorrect] = useState(false);
     const [hasAttempted, setHasAttempted] = useState(false); // To track if user has made an attempt
-/////////////////
-    const [role, setRole] = useState('student');
-    const [studentsCount, setStudentsCount] = useState(0);
-
-    useEffect(() => {
-      socket.emit('joinCodeBlock', chosenCodeBlock._id);
-
-      socket.on('role', (data) => {
-          setRole(data.role);
-      });
-
-      socket.on('studentsCount', count => {
-          setStudentsCount(count);
-      });
-
-      socket.on('mentorDisconnected', () => {
-          // Redirect to the lobby page if the mentor disconnects
-          navigate('/');
-      });
-
-      return () => {
-          // Cleanup when the component unmounts
-          socket.disconnect();
-      };
-  }, [chosenCodeBlock._id, navigate]);
-
 
     const handleCodeChange = (event) => {
       const newCode = event.target.value;
       setCode(newCode);
-      ////////////////////
-      socket.emit('codeChange', { codeBlockId: chosenCodeBlock.id, code: newCode });
+      socket.emit('codeChange', { codeBlockId: chosenCodeBlock._id, code: newCode });
     };
 
     const handleCheckClick = () => {
@@ -61,16 +37,33 @@ export default function CodePage() {
         setIsSolutionCorrect(normalizedCode === normalizedSolution);
     };
 
+    useEffect(() => {
+      socket.emit('joinCodeBlock', chosenCodeBlock._id);
+
+      socket.on('codeUpdate', (updatedCode) => {
+          setCode(updatedCode);
+      });
+
+      return () => {
+          socket.off('codeUpdate');
+      };
+  }, [chosenCodeBlock._id, socket]);
+
+    
   return (
     <div>
         <div>
             <h1>{chosenCodeBlock.name}</h1>
-            <div>Role: {role}</div>
-            <div>Students in the room: {studentsCount}</div>
             <div style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: '16px', border: '1px solid #ccc', borderRadius: '4px', padding: '10px', marginBottom: '20px' }}>
                 {/* Display the initial code as text */}
                 {chosenCodeBlock.initialCode}
             </div>
+            {role === 'mentor' ? (
+                <textarea value={code} readOnly />
+            ) : (
+                <textarea value={code} onChange={handleCodeChange} />
+            )}
+            <p>Students in room: {studentsCount}</p>
             <textarea
                 value={code}
                 onChange={handleCodeChange}

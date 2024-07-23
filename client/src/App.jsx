@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import { ContextPage } from './Context/ContextProvider';
 import CodeBlocks from './Components/CodeBlocks';
+import { SocketProvider } from './Context/SocketProvider';
 
 // const fetchApi = async() => {
 //   try {
@@ -38,10 +39,12 @@ function App() {
     
   return (
     <div className="App">
+      <SocketProvider>
       <Routes>
         <Route path='/' element={<LobbyPage/>}></Route>
         <Route path='/codeBlockPage' element={<CodeBlockPage/>}></Route>
       </Routes>
+      </SocketProvider>
     </div>
   );
 }

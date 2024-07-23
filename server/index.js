@@ -1,9 +1,9 @@
 require('dotenv').config();
-const http = require('http');
-const socketIo = require('socket.io');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const http = require('http'); // Import HTTP module
+const socketIo = require('socket.io'); // Import Socket.io
 
 const PORT = process.env.PORT || 5500;
 
@@ -14,22 +14,15 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-server.use('/api/codeBlocks', require('./routes/codeBlocksRoute'));
-
-server.get('/',function(req, res) {
-    const ipAddress = req.header('x-forwarded-for') ||
-                          req.socket.remoteAddress;
-    res.send(ipAddress);
-});
-
+// Create an HTTP server using Express
 const ser = http.createServer(server);
 
+// Attach Socket.io to the HTTP server
 const io = socketIo(ser);
 
-// Track roles and connections
-const codeBlockRoles = {}; // Format: { codeBlockId: { mentorSocketId: string, studentSocketIds: Set<string> } }
-
 // Socket.io handling
+const codeBlockRoles = {}; // Track roles and connections
+
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
@@ -69,6 +62,14 @@ io.on('connection', (socket) => {
             }
         });
     });
+});
+
+server.use('/api/codeBlocks', require('./routes/codeBlocksRoute'));
+
+server.get('/',function(req, res) {
+    const ipAddress = req.header('x-forwarded-for') ||
+                          req.socket.remoteAddress;
+    res.send(ipAddress);
 });
 
 server.listen(PORT, () => {

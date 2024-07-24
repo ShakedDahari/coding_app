@@ -62,7 +62,7 @@ export default function CodePage() {
       socket.off("codeUpdate");
       socket.off("codeDelete");
     };
-  }, [chosenCodeBlock._id, socket]);
+  }, [chosenCodeBlock._id, socket, setCode]);
 
   return (
     <div className="container my-4">

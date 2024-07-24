@@ -4,12 +4,12 @@ import { apiUrl } from "../utils/api_url";
 export const ContextPage = createContext();
 
 export default function ContextProvider(props) {
-  // All code blocks items
+
   const [codeBlocks, setCodeBlocks] = useState([]);
   const [chosenCodeBlock, setChosenCodeBlock] = useState();
   const [code, setCode] = useState("");
   const [isSolutionCorrect, setIsSolutionCorrect] = useState(false);
-  const [hasAttempted, setHasAttempted] = useState(false); // To track if user has made an attempt
+  const [hasAttempted, setHasAttempted] = useState(false); 
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState('');
   const [intro, setIntro] = useState('');
@@ -49,11 +49,12 @@ export default function ContextProvider(props) {
       .trim(); // Trim leading and trailing spaces
   };
 
-  const addcodeBlock = async (user) => {
+  // Function to add a code block to the database only as a mentor
+  const addcodeBlock = async (codeBlock) => {
     try {
-      let res = await fetch(`${apiUrl}/api/codeBlock/add`, {
+      let res = await fetch(`${apiUrl}/api/codeBlocks/add`, {
         method: "POST",
-        body: JSON.stringify(user),
+        body: JSON.stringify(codeBlock),
         headers: {
           "Content-Type": "application/json",
         },

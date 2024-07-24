@@ -59,7 +59,7 @@ export default function LobbyPage() {
     setIsAdding(false);
 
     if (name && intro && initialCode && solution) {
-      await addcodeBlock(name, intro, initialCode, solution);
+      await addcodeBlock(newCodeBlock);
     }
 
     setName("");

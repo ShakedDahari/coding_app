@@ -25,11 +25,11 @@ import { SocketProvider } from './Context/SocketProvider';
 
 function App() {
  
-  const { LoadCodeBlocks, CodeBlocks } = useContext(ContextPage);
+  const { LoadCodeBlocks, codeBlocks } = useContext(ContextPage);
   
   useEffect(() => {
       LoadCodeBlocks();
-      console.log(CodeBlocks);
+      console.log(codeBlocks);
     }, []);
 
     // useEffect(() =>{

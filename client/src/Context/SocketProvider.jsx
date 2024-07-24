@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { apiUrl } from '../utils/api_url';
 
 const SocketContext = createContext();
 
@@ -13,7 +14,7 @@ export const SocketProvider = ({ children }) => {
     const [studentsCount, setStudentsCount] = useState(0);
 
     useEffect(() => {
-        const socketInstance = io('https://coding-app-o6rb.onrender.com', {
+        const socketInstance = io(`${apiUrl}`, {
             transports: ['websocket', 'polling']
         });
 

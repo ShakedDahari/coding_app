@@ -55,6 +55,11 @@ io.on('connection', (socket) => {
         socket.to(data.codeBlockId).emit('codeUpdate', data.code);
     });
 
+    // Broadcast to all clients that the code is deleted
+    socket.on('codeDelete', (codeBlockId) => {
+        io.emit('codeDelete', codeBlockId);
+    });
+
     // Handle disconnection
     socket.on('disconnect', () => {
         Object.keys(codeBlockRoles).forEach(codeBlockId => {

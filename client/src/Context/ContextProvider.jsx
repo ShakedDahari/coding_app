@@ -6,33 +6,20 @@ export const ContextPage = createContext();
 export default function ContextProvider(props) {
   // All code blocks items
   const [codeBlocks, setCodeBlocks] = useState([]);
-  // const codeBlocks = [
-  //     { id: 1, title: 'Math Operations' },
-  //     { id: 2, title: 'Conditional Statements' },
-  //     { id: 3, title: 'Switch' },
-  //     { id: 4, title: 'Loops' },
-  //     { id: 5, title: 'Regular Expressions' },
-  // ];
-
-  // Save the chosen code block
   const [chosenCodeBlock, setChosenCodeBlock] = useState();
-
-  // const LoadCodeBlocks = async () => {
-  //     try {
-  //       let res = await fetch(`${apiUrl}/api/codeBlocks`);
-  //       let data = await res.json();
-  //       console.log(data);
-  //       setCodeBlocks(data);
-  //     } catch (error) {
-  //       console.log({ error } );
-  //     }
-  //   };
+  const [code, setCode] = useState("");
+  const [isSolutionCorrect, setIsSolutionCorrect] = useState(false);
+  const [hasAttempted, setHasAttempted] = useState(false); // To track if user has made an attempt
+  const [savedId, setSavedId] = useState();
+  const [savedName, setSavedName] = useState();
+  const [loading, setLoading] = useState(true);
 
   const LoadCodeBlocks = async () => {
     try {
       const res = await fetch(`${apiUrl}/api/codeBlocks`);
       const data = await res.json();
       setCodeBlocks(data);
+      setLoading(false);
     } catch (error) {
       console.log({ error });
     }
@@ -68,6 +55,16 @@ export default function ContextProvider(props) {
         LoadCodeBlocks,
         fetchCodeBlockData,
         normalizeCode,
+        code,
+        setCode,
+        isSolutionCorrect,
+        setIsSolutionCorrect,
+        hasAttempted,
+        setHasAttempted,
+        savedId,
+        setSavedId,
+        savedName, setSavedName,
+        loading, setLoading
       }}
     >
       {props.children}

@@ -6,7 +6,7 @@ import { apiUrl } from "../utils/api_url";
 export default function LobbyPage() {
 
     const navigate = useNavigate();
-    const { codeBlocks, setCodeBlocks, setChosenCodeBlock, LoadCodeBlocks, fetchCodeBlockData } = useContext(ContextPage);
+    const { codeBlocks, setCodeBlocks, setChosenCodeBlock, LoadCodeBlocks, fetchCodeBlockData, loading } = useContext(ContextPage);
 
     // useEffect(() => {
     //         try {
@@ -67,12 +67,14 @@ export default function LobbyPage() {
         }
       };
 
+      if (loading) return <div className="loader"></div>;
+
   return (
     <div className="lobby-page">
       <div>
         <h1>Choose Code Block</h1>
         <ul>
-            {codeBlocks.map(block =><li key={block._id}><button onClick={() => handleNavigation(block)}>{block.name}</button></li>)}
+            {codeBlocks.map(block =><li key={block._id}><button type="button" className="btn btn-light" onClick={() => handleNavigation(block)}>{block.name}</button></li>)}
         </ul>
       </div>
     </div>

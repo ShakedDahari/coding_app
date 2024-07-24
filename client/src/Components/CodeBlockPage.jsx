@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { ContextPage } from "../Context/ContextProvider";
-import io from "socket.io-client";
-import { apiUrl } from "../utils/api_url";
 import { useSocket } from "../Context/SocketProvider";
 
 export default function CodePage() {
@@ -28,7 +26,7 @@ export default function CodePage() {
     });
   };
 
-  const handleCheckClick = () => {
+  const handleCheckClick = async () => {
     setHasAttempted(true); // Mark as attempted
 
     // Normalize both the user input code and the solution
@@ -39,13 +37,13 @@ export default function CodePage() {
     console.log("Normalized Solution:", normalizedSolution);
 
     // Compare the normalized user input code with the normalized solution
-    setIsSolutionCorrect(normalizedCode === normalizedSolution);
+    await setIsSolutionCorrect(normalizedCode === normalizedSolution);
 
     // If the solution is correct, delete the code
-    if (isSolutionCorrect) {
+    if (isSolutionCorrect) { 
       setTimeout(() => {
         socket.emit("codeDelete", chosenCodeBlock._id);
-      }, 1000); // Add a delay if you want to show the smiley emoji for a while
+      }, 1000); 
     }
   };
 
@@ -67,60 +65,46 @@ export default function CodePage() {
   }, [chosenCodeBlock._id, socket]);
 
   return (
-    <div>
-      <div>
+    <div className="container my-4">
+    <div className="row mb-4">
+      <div className="col-12 text-center">
         <h1>{chosenCodeBlock.name}</h1>
         <p>Students in room: {studentsCount}</p>
-        <div
-          style={{
-            whiteSpace: "pre-wrap",
-            fontFamily: "monospace",
-            fontSize: "16px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            padding: "10px",
-            marginBottom: "20px",
-          }}
-        >
-          {chosenCodeBlock.intro}
-          {chosenCodeBlock.initialCode}
+      </div>
+    </div>
+    <div className="row justify-content-center">
+      <div className="col-md-8">
+        <div className="alert alert-dark" role="alert">
+          <pre>{chosenCodeBlock.intro}</pre>
         </div>
+          <h3>Challenge:</h3>
+          <pre>{chosenCodeBlock.initialCode}</pre>
+      </div>
+    </div>
+    <div className="row justify-content-center">
+      <div className="col-md-8">
         {role === "mentor" ? (
-          <div>
-            <div
-              className="form-floating"
-              style={{
-                margin: "20px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <textarea
-                disabled
-                id="floatingInputDisabled"
-                className="form-control"
-                placeholder="Answer"
-                style={{ width: "500px", height: "300px", fontSize: "16px" }}
-                value={code}
-                onChange={handleCodeChange}
-              />
-            </div>
-            <p>Solution: {chosenCodeBlock.solution}</p>
+          <div className="form-floating mb-3">
+            <textarea
+              disabled
+              id="floatingInputDisabled"
+              className="form-control"
+              placeholder="Answer"
+              style={{ height: "300px", fontSize: "16px" }}
+              value={code}
+              onChange={handleCodeChange}
+            />
+            <label>Answer</label>
+            <p style={{ margin: 10, fontSize: "16px" }}>Solution:</p>
+            <pre className="mt-2" style={{ textAlign: 'left' }}>{chosenCodeBlock.solution}</pre>
           </div>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div className="form-floating" style={{ margin: "20px" }}>
+          <div>
+            <div className="form-floating mb-3">
               <textarea
                 className="form-control"
                 placeholder="Answer"
-                style={{ width: "500px", height: "300px", fontSize: "16px" }}
+                style={{ height: "300px", fontSize: "16px" }}
                 value={code}
                 onChange={handleCodeChange}
               />
@@ -128,23 +112,25 @@ export default function CodePage() {
             </div>
             <button
               type="button"
-              className="btn btn-success"
+              className="btn btn-success w-100"
               onClick={handleCheckClick}
             >
               Check
             </button>
           </div>
         )}
-
-        <div style={{ marginTop: "20px" }}>
-          {isSolutionCorrect === true && (
-            <div style={{ fontSize: "100px", color: "green" }}>😊</div>
-          )}
-          {hasAttempted && isSolutionCorrect === false && (
-            <div style={{ fontSize: "24px", color: "red" }}>Try Again</div>
-          )}
-        </div>
       </div>
     </div>
+    <div className="row justify-content-center mt-4">
+      <div className="col-12 text-center">
+        {isSolutionCorrect === true && (
+          <div className="display-1 text-success">😊</div>
+        )}
+        {hasAttempted && isSolutionCorrect === false && (
+          <div className="h4 text-danger">Try Again</div>
+        )}
+      </div>
+    </div>
+  </div>
   );
 }

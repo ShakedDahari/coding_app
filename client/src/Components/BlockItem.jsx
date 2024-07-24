@@ -1,9 +1,6 @@
-import React, { useContext } from 'react';
-import { ContextPage } from '../Context/ContextProvider';
+import React from 'react';
 
 export default function BlockItem(props) {
-
-    //const { codeBlocks } = useContext(ContextPage);
 
   return (
     <div>

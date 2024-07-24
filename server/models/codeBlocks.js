@@ -16,6 +16,10 @@ class CodeBlock {
     static async FindById(id) {
         return await new DB().FindByID(CodeBlock.collection, id);
     }
+
+    async InsertOne() {
+        return await new DB().Insert(CodeBlock.collection, this);
+    }
 }
 
 

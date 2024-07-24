@@ -10,9 +10,13 @@ export default function ContextProvider(props) {
   const [code, setCode] = useState("");
   const [isSolutionCorrect, setIsSolutionCorrect] = useState(false);
   const [hasAttempted, setHasAttempted] = useState(false); // To track if user has made an attempt
-  const [savedId, setSavedId] = useState();
-  const [savedName, setSavedName] = useState();
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState('');
+  const [intro, setIntro] = useState('');
+  const [initialCode, setInitialCode] = useState('');
+  const [solution, setSolution] = useState('');
+  const [isAdding, setIsAdding] = useState(false);
+
 
   const LoadCodeBlocks = async () => {
     try {
@@ -45,6 +49,25 @@ export default function ContextProvider(props) {
       .trim(); // Trim leading and trailing spaces
   };
 
+  const addcodeBlock = async (user) => {
+    try {
+      let res = await fetch(`${apiUrl}/api/codeBlock/add`, {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      LoadCodeBlocks();
+    }
+  };
+  
+
   return (
     <ContextPage.Provider
       value={{
@@ -61,10 +84,13 @@ export default function ContextProvider(props) {
         setIsSolutionCorrect,
         hasAttempted,
         setHasAttempted,
-        savedId,
-        setSavedId,
-        savedName, setSavedName,
-        loading, setLoading
+        loading, setLoading,
+        name, setName,
+        intro, setIntro,
+        initialCode, setInitialCode,
+        solution, setSolution,
+        isAdding, setIsAdding,
+        addcodeBlock,
       }}
     >
       {props.children}

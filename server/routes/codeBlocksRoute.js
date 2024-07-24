@@ -21,4 +21,15 @@ codeBlocksRoute.get('/:id', async (req, res) => {
     }
 });
 
+codeBlocksRoute.post('/add', async (req, res) => {
+    try {
+        let { name, intro, initialCode, solution } = req.body;
+        let data = await new CodeBlock( name, intro, initialCode, solution ).InsertOne();
+        res.status(201).json(data);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
 module.exports = codeBlocksRoute;

@@ -3,7 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .App-logo {
@@ -57,4 +58,13 @@
 
 ul {
   list-style-type: none;
+}
+
+.textarea {
+  width: 30%;
+  padding: 10px;
+  margin: 5px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }

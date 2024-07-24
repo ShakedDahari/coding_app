@@ -4,9 +4,16 @@ class CodeBlock {
     static collection = 'codeBlocks';
 
     name;
+    intro;
+    initialCode;
+    solution;
+    
 
-    constructor(name) {
+    constructor(name, intro, initialCode, solution) {
         this.name = name;
+        this.intro = intro;
+        this.initialCode = initialCode;
+        this.solution = solution;
     }
 
     static async FindAllCodeBlocks() {

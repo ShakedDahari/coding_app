@@ -56,8 +56,8 @@ io.on('connection', (socket) => {
     });
 
     // Broadcast to all clients that the code is deleted
-    socket.on('codeDelete', (codeBlockId) => {
-        io.emit('codeDelete', codeBlockId);
+    socket.on('codeDelete', () => {
+        io.emit('codeDelete');
     });
 
     // Handle disconnection

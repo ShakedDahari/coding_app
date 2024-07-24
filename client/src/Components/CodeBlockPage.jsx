@@ -44,15 +44,10 @@ export default function CodePage() {
     // If the solution is correct, delete the code
     if (isSolutionCorrect) {
       setTimeout(() => {
-        // deleteAnswer();
         socket.emit("codeDelete", chosenCodeBlock._id);
       }, 1000); // Add a delay if you want to show the smiley emoji for a while
     }
   };
-
-  // const deleteAnswer = () => {
-  //   setCode("");
-  // };
 
   useEffect(() => {
     socket.emit("joinCodeBlock", chosenCodeBlock._id);

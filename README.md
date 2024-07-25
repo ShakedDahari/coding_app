@@ -1,8 +1,7 @@
 # Coding App
 
-Online coding web application designed to help students continue learning JavaScript.
+Online coding web application designed to help students continue learning JavaScript. 
 This app allows students and mentors to collaborate on coding challenges in real-time.
-
 
 ## Features
 
@@ -14,13 +13,29 @@ This app allows students and mentors to collaborate on coding challenges in real
 
 ## Installation
 
+### Server
+
+Navigate to the server directory and install the necessary dependencies:
+
+```sh
 cd server
 npm install
 
+### Client
+
+Navigate to the client directory and install the necessary dependencies:
+
+```sh
 cd client
 npm install
 
-## Start
+## Start the Application
 
-local: npm start
+To start the application locally, use the following command:
+
+```sh
+npm start
+
+## Visit the live site
+You can access the live version of the app [here](doc:[linking-to-pages#anchor-links](https://coding-app.netlify.app/)).
 

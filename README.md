@@ -20,6 +20,7 @@ Navigate to the server directory and install the necessary dependencies:
 ```sh
 cd server
 npm install
+```
 
 ### Client
 
@@ -28,6 +29,7 @@ Navigate to the client directory and install the necessary dependencies:
 ```sh
 cd client
 npm install
+```
 
 ## Start the Application
 
@@ -35,7 +37,8 @@ To start the application locally, use the following command:
 
 ```sh
 npm start
+```
 
 ## Visit the live site
-You can access the live version of the app [here](doc:[linking-to-pages#anchor-links](https://coding-app.netlify.app/)).
+You can access the live version of the app [here](https://coding-app.netlify.app/).
 

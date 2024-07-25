@@ -10,7 +10,7 @@ This app allows students and mentors to collaborate on coding challenges in real
 - **Mentor-Student Interaction**: Mentors can view and guide students code progress.
 - **Real-Time Updates**: Code changes are reflected in real-time using WebSockets.
 - **Solution Checking**: Displays a smiley face when the student's code matches the solution.
-- **Additional Feature**: The mentor have the capability to add new code blocks, which are updated in the database and available for students to work on.
+- **Additional Feature**: The mentor has the capability to add new code blocks, which are updated in the database and available for students to work on.
 
 ## Installation
 
